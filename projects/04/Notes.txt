@@ -1,0 +1,3 @@
+- use the supplied Assembler to assemble your Fill.asm into Fill.hack.
+- Then load Fill.hack in the CPU emulator, this time with the FillAutomatic.tst test. (There's currently an issue where the filenames are preceded by a random sequence of characters. Make sure you rename the files to FillAutomatic.tst and FillAutomatic.cmp so the test will work.)
+- 
