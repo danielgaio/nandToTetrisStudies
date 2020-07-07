@@ -28,7 +28,7 @@
     M = -1 // ram[address] = -1 (16 pixels com valor 1) 1111111... Preenche a linha com uns 
 
     @i
-    M = M + 1 // i = i + i
+    M = M + 1 // i = i + 1
     @32
     D = A
     @address

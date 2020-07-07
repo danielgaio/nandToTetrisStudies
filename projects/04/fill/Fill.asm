@@ -13,28 +13,47 @@
 
 // Put your code here.
 
-    // carregar 480 para primeira posição da ram
-    //@R0
-    //M = 480
-    //D = M // D = ram[0]
-    //@n // cria variável
-    //M = D // n = ram[0]
+(LOOP_ESPERA_CLIK) // loop infinito que estuta o KBD register input
+    @KBD
+    D = M // D = ram[kdb]. faz uma leitura do registrador do teclado
+    @LOOP_ESPERA_CLIK
+    D ; JEQ // if D = 0 goto LOOP_ESPERA_CLIK
 
-    //@i // cria variável
-    //M = 0 // i = 0
+    // tem alguma coisa no teclado, então fazer tela ficar preta
+
+    @R0
+    D = M // D = ram[0]
+    @n // cria variável
+    M = D // n = ram[0]
+
+    @i // cria variável
+    M = 0 // i = 0
 
     @SCREEN // palavra chave que contém o endereço base da memória de tela
     D = A // D recebe o endereço base da tela
     @address // cria variável
     M = D // address = 16284
 
-(LOOP_ESPERA_CLIK) // loop infinito que estuta o KBD register input
-    @KDB
-    D = M // D = ram[kdb]. faz uma leitura do registrador do teclado
-    @LOOP_ESPERA_CLIK
-    D ; JEQ // if D = 0 goto LOOP_ESPERA_CLIK
+(LOOP_BLACK_SCREEN)
+    @i
+    D = M // D = ram[i]
+    @n
+    D = D - M // D = ram[i] - ram[n]
+    @END
+    D ; JGT // if i > n goto END
 
-    // tem alguma coisa no teclado, então fazer tela ficar preta
+    @address
+    A = M
+    M = -1// ram[address] = -1 (16 pixels com valor 1) 1111111... Preenche a linha com uns 
+
+    @i
+    M = M + 1 // i = i + i
+    @32
+    D = A
+    @address
+    M = M + D // address = address + 32
+    @LOOP_BLACK_SCREEN
+    0 ; JMP // salto incondicional para LOOP_BLACK_SCREEN
 
 (END)
     @END
