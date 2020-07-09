@@ -29,7 +29,7 @@
 
     @i
     M = M + 1 // i = i + 1
-    @32
+    @1
     D = A
     @address
     M = M + D // address = address + 32
