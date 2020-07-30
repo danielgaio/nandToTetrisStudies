@@ -10,41 +10,52 @@
 
     @R1
     D = M   // D = primeiro operando
+    @STOP_ZERO
+    D ; JLE // verifica se 1º operando é zero
+    @R1
+    D = M
     @result
     M = D
 
     @R0
     D = M
+    @STOP_ZERO
+    D ; JLE // verifica se 2º operando é zero
+    @R0
+    D = M
 
     @count
-    M = D
+    M = D - 1   // já asicionei uma vez ao result
 
-    // CONTINUAR ....
-
-//(LOOP)      // criação de rótulo para branches
-//    @result
-//    M = M + D   // result + R1
+(LOOP)      // criação de rótulo para branches
+    @R1
+    D = M
+    @result
+    M = M + D   // result + R1
     
-//    @count
-//    M = M + 1
-//    D = M
+    @count
+    M = M - 1
+    D = M
+    @STOP
+    D ; JEQ
+    @LOOP
+    0 ; JMP
 
-//    @STOP // pula para o endereço rotulado como STOP
-//    D ; JGT // if i > n goto STOP
+(STOP)
+    @result
+    D = M
+    @R2
+    M = D
+    @END
+    0 ; JMP
 
+(STOP_ZERO)
+    @R2
+    M = 0
 
-//    @LOOP // volta para onde esta o rótulo LOOP
-//    0 ; JMP // com esse jump incondicional
-
-//(STOP)
-//    @result
-//    D = M
-//    @R2
-//    M = D
-
-//(END) // loop infinito de finalização de programa
-//    @END
-//    0 ; JMP
+(END) // loop infinito de finalização de programa
+    @END
+    0 ; JMP
 
 
 //    int soma(r0, r1, r2){
