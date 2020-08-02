@@ -44,4 +44,6 @@ CHIP CPU {
     Register(in=out_mux_in_A, load=, out=out_A_in_mux);         // reg A
     Register(in=alu_out, load=, out=D_out_in_alu);              // reg D
     Mux16(a=out_A_in_mux, b=inM, sel=, out=out_mux_in_alu);
+    ALU(x=D_out_in_alu, y=out_mux_in_alu, zx=, nx=, zy=, ny=, f=, no=, out=outM, zr=, ng=);
+    PC(in=out_A_in_mux, load=, inc=, reset=reset, out=pc);
 }
